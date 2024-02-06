@@ -30,15 +30,19 @@ describe("When slider is created", () => {
   it("a list card is displayed", async () => {
     window.console.error = jest.fn();
     api.loadData = jest.fn().mockReturnValue(data);
+    
     render(
       <DataProvider>
         <Slider />
       </DataProvider>
     );
-    await screen.findByText("World economic forum");
-    await screen.findByText("janvier");
-    await screen.findByText(
+    const title = await screen.findByText("World economic forum");
+    const date = await screen.findByText("janvier");
+    const description = await screen.findByText(
       "Oeuvre à la coopération entre le secteur public et le privé."
     );
+    expect(title).toBeInTheDocument();
+    expect(date).toBeInTheDocument();
+    expect(description).toBeInTheDocument();
   });
 });
