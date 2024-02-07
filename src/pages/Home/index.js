@@ -2,9 +2,8 @@ import Menu from "../../containers/Menu";
 import ServiceCard from "../../components/ServiceCard";
 import EventCard from "../../components/EventCard";
 import PeopleCard from "../../components/PeopleCard";
-
 import "./style.scss";
-import EventList from "../../containers/Events";
+import EventList from "../../containers/Events"
 import Slider from "../../containers/Slider";
 import Logo from "../../components/Logo";
 import Icon from "../../components/Icon";
@@ -53,7 +52,7 @@ const Page = () => {
       </section>
       <section className="EventsContainer">
         <h2 className="Title">Nos réalisations</h2>
-        <EventList />
+        <EventList/>
       </section>
       <section className="PeoplesContainer">
         <h2 className="Title">Notre équipe</h2>
