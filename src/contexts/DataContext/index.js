@@ -20,8 +20,11 @@ export const DataProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const [data, setData] = useState(null);
   const getData = useCallback(async () => {
-    try {
-      setData(await api.loadData());
+   
+    try { 
+      const responseData = await api.loadData();
+      console.log("data", responseData);
+      setData(responseData);
     } catch (err) {
       setError(err);
     }
