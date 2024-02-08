@@ -14,8 +14,6 @@ import { useData } from "../../contexts/DataContext";
 const Page = () => {
   const {lastEvent} = useData();
   const lastEventDate = lastEvent ? new Date(lastEvent.date) : new Date();
-  console.log("last event", lastEvent);
-  console.log("lastEventDate", lastEventDate);
   return <>
     <header>
       <Menu />

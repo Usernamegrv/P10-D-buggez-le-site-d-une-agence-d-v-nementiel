@@ -13,9 +13,10 @@ const EventList = () => {
   const { data, error } = useData();
   const [type, setType] = useState();
   const [currentPage, setCurrentPage] = useState(1);
-  const filteredEvents = (
-    !type ? data?.events : data?.events.filter(event => event.type === type ) // ajout .filter à events pour filtrer les événements par type
-    )?.filter((_, index) => {
+  const filteredEvents = (// ajout .filter à events pour filtrer les événements par type
+    !type ? data?.events : data?.events.filter(event => event.type === type ) 
+    ) || [];
+    filteredEvents.filter((_, index) => {
     if (
       (currentPage - 1) * PER_PAGE <= index &&
       PER_PAGE * currentPage > index
@@ -30,6 +31,9 @@ const EventList = () => {
   };
   const pageNumber = Math.floor((filteredEvents?.length || 0) / PER_PAGE) + 1;
   const typeList = new Set(data?.events.map((event) => event.type));
+  if (error || (data === null &&  !error)) {
+    <div>An error occurred or data is still loading...</div>;
+  }
   return (
     <>
       {error && <div>An error occured</div>}
@@ -43,8 +47,8 @@ const EventList = () => {
             onChange={(value) => (value ? changeType(value) : changeType(null))}
           />
           <div id="events" className="ListContainer">
-            {filteredEvents.map((event) => (
-              <Modal key={event.id} Content={<ModalEvent event={event} />}>
+            {filteredEvents.map((event, index) => (
+              <Modal key={event.id || index} Content={<ModalEvent event={event} />}>
                 {({ setIsOpened }) => (
                   <EventCard
                     onClick={() => setIsOpened(true)}

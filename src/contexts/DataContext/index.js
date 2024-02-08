@@ -23,7 +23,6 @@ export const DataProvider = ({ children }) => {
   const getData = useCallback(async () => {
     try { 
       const responseData = await api.loadData();
-       console.log("data", responseData);
       setData(responseData);
       if (responseData && responseData.events && responseData.events.length > 0) {
         const latestEvent = responseData.events[0];
