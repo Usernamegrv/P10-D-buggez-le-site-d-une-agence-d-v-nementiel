@@ -6,9 +6,9 @@ import "./style.scss";
 const Slider = () => {
   const { data } = useData();
   const [index, setIndex] = useState(0);
-  const byDateDesc = data?.focus.sort((evtA, evtB) =>
+  const byDateDesc = data?.focus ? data?.focus.sort((evtA, evtB) =>
     new Date(evtA.date) < new Date(evtB.date) ? -1 : 1
-  );
+  ) : []; // initialisation de l'array
   const nextCard = () => {
     setTimeout(
       () => setIndex(index < byDateDesc.length - 1 ? index + 1 : 0), // ajout - 1 pour ne pas sortir de l'array
