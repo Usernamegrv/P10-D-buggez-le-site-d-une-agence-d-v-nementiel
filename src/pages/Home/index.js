@@ -13,7 +13,7 @@ import { useData } from "../../contexts/DataContext";
 
 const Page = () => {
   const { lastEvent } = useData();
-  const lastEventDate = lastEvent ? new Date(lastEvent.date) : new Date();
+  const lastEventDate = lastEvent ? new Date(lastEvent[0].date) : new Date();
 
   return (
     <>
@@ -119,7 +119,7 @@ const Page = () => {
             <EventCard
               imageSrc={lastEvent[0].cover}
               title={lastEvent[0].title}
-              date={lastEventDate[0]}
+              date={lastEventDate}
               small
               label="boom"
             />
