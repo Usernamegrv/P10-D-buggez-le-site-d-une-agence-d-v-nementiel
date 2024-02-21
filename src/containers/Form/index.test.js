@@ -2,6 +2,13 @@ import { act, fireEvent, render, screen } from "@testing-library/react";
 import Form from "./index";
 
 describe("When Events is created", () => {
+  beforeEach(() => {
+    jest.useFakeTimers();
+  });
+
+  afterEach(() => {
+    jest.clearAllTimers();
+  });
   it("a list of event card is displayed", async () => {
     render(<Form />);
     await screen.findByText("Email");
@@ -14,23 +21,18 @@ describe("When Events is created", () => {
     it("the success action is called", async () => {
       const onSuccess = jest.fn();
       render(<Form onSuccess={onSuccess} />);
-
-      const sendButton = await screen.findByText("Envoyer");
-      expect(sendButton).toBeInTheDocument();
-
-      await act(async () => {
-        fireEvent(
-          await screen.findByTestId("button-test-id"),
-          new MouseEvent("click", {
-            cancelable: true,
-            bubbles: true,
-          })
-        );
+      fireEvent(
+        await screen.findByTestId("button-test-id"),
+        new MouseEvent("click", {
+          cancelable: true,
+          bubbles: true,
+        })
+      );
+      act(() => {
+        jest.advanceTimersByTime(5000);
       });
-
-      const inProgressButton = await screen.findByText("En cours");
-      expect(inProgressButton).toBeInTheDocument();
-
+      await screen.findByText("En cours");
+      await screen.findByText("Envoyer");
       expect(onSuccess).toHaveBeenCalled();
     });
   });
